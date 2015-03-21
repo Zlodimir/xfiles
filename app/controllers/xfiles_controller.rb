@@ -14,7 +14,8 @@ class XfilesController < ApplicationController
 			flash[:notice] = "X-File has been created."
 			redirect_to @xfile
 		else
-			#nothing
+			flash.now[:alert] = "X-File has not been created"
+			render "new"
 		end
 	end
 

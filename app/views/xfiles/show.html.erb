@@ -2,3 +2,8 @@
 <h1><%= @xfile.name %></h1>
 <p><%= @xfile.description %></p>
 <%= link_to "Edit X-File", edit_xfile_path(@xfile) %>
+<%= link_to "Delete X-File", 
+	xfile_path(@xfile), 
+	method: :delete,
+	data: {confirm: "Are you sure want to delete this X-File?"}
+%>

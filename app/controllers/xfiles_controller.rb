@@ -38,6 +38,15 @@ class XfilesController < ApplicationController
 		end
 	end
 
+	def destroy 
+		@xfile = Xfile.find(params[:id])
+		@xfile.destroy
+
+		flash[":notice"] = "X-File has been deleted."
+
+		redirect_to xfiles_path
+	end
+
 	def project_params
 		params.require(:xfile).permit(:name, :description)
 	end

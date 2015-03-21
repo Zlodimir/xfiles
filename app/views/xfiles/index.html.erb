@@ -1,1 +1,9 @@
-<%= link_to "New X-File", new_xfile_path %>
+<h1>X-Files</h1>
+<%= link_to "New X-File", new_xfile_path, class: "new" %>
+
+<div id="xfiles">
+	<% @xfiles.each do | x | %>
+		<h2><%= link_to x.name, x %></h2>
+		<p><%= x.description %></p>
+	<% end %>
+</div>

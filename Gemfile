@@ -55,3 +55,7 @@ group :test do
 	gem "capybara", "~> 2.4"
 	gem "factory_girl_rails", "~> 4.5"
 end
+
+group :production do
+	gem 'rails_12factor', '0.0.2'
+end

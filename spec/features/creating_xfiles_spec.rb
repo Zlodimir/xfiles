@@ -8,8 +8,8 @@ RSpec.feature "Creating X-Files" do
 
 	scenario "A user can create new X-File" do
 
-		fill_in "Название", with: "UFO"
-		fill_in "Дэскрипшн", with: "A man has been seen UFO"
+		fill_in "Name", with: "UFO"
+		fill_in "Description", with: "A man has been seen UFO"
 		click_button "Create Xfile"
 
 		expect(page).to have_content("X-File has been created.")
@@ -25,6 +25,6 @@ RSpec.feature "Creating X-Files" do
 		click_button "Create Xfile"
 
 		expect(page).to have_content("X-File has not been created")
-		expect(page).to have_content("Name can't be blank")
+		expect(page).to have_content("can't be blank")
 	end
 end

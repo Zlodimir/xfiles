@@ -1,5 +1,10 @@
-<h1>X-Files</h1>
-<%= link_to "New X-File", new_xfile_path, class: "new" %>
+<div class="page-header">
+	<h1>X-Files</h1>
+	<ul class="actions">
+		<li><%= link_to "New X-File", new_xfile_path, class: "new" %></li>
+	</ul>
+</div>
+
 
 <div id="xfiles">
 	<% @xfiles.each do | x | %>

@@ -10,13 +10,13 @@ RSpec.feature "Editing X-Files" do
 
 	scenario "Editing X-Files" do
 
-		fill_in "Название", with: "A man has been seen big UFO"
+		fill_in "Name", with: "A man has been seen big UFO"
 		click_button "Update Xfile"
 		expect(page).to have_content("X-File has been updated")
 	end
 
 	scenario "Updating X-file with invalid attributes" do
-		fill_in "Название", with: ""
+		fill_in "Name", with: ""
 		click_button "Update Xfile"
 		expect(page).to have_content("X-File has not been updated")		
 	end

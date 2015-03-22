@@ -1,4 +1,6 @@
 class XfilesController < ApplicationController
+	before_action :set_project, only: [:show, :edit, :update, :destroy]
+
 	def index
 		@xfiles = Xfile.all
 	end
@@ -49,5 +51,14 @@ class XfilesController < ApplicationController
 
 	def project_params
 		params.require(:xfile).permit(:name, :description)
+	end
+
+	private
+
+	def set_project
+		@xfile = Xfile.find(params[:id])
+		rescue ActiveRecord::RecordNotFound
+			flash[:alert] = "The X-File you are looking for could not be found"
+		redirect_to xfiles_path
 	end
 end

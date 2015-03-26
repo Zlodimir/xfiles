@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   #   end
   root 'xfiles#index'
 
-  resources :xfiles
+  resources :xfiles do
+    resources :notes
+  end
 
 end

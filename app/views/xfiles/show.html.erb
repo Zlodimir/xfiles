@@ -16,3 +16,22 @@
 	</ul>
 </div>
 <h3><%= @xfile.description %></h3>
+
+<div class="page-header">
+	<h2>Notes</h2>
+
+	<ul class="actions">
+		<li>
+			<%= link_to "New note", new_xfile_note_path(@xfile), class: "new" %>
+		</li>
+	</ul>
+</div>
+
+<ul id='notes'>
+	<%= @xfile.notes.each do | note | %>
+		<li>
+			#<%= note.id %>
+			<%= link_to note.title, [@xfile, note] %>
+		</li>
+	<% end %>
+</ul>

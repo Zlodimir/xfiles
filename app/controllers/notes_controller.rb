@@ -21,6 +21,27 @@ class NotesController < ApplicationController
 
 	end
 
+	def edit
+
+	end
+
+	def update
+		if @note.update(note_params)
+			flash[:notice] = "Note has been updated"
+			redirect_to [@xfile, @note]
+		else
+			flash.now[:alert] = "Note has not been updated"
+			render "edit"
+		end
+	end
+
+	def destroy
+		@note.destroy
+
+		flash[:notice] = "Note has been deleted"
+		redirect_to @xfile
+	end
+
 	private 
 
 	def set_xfile

@@ -1,6 +1,6 @@
 FactoryGirl.define do 
 	factory :note do
-		name "Example Note"
+		title "Example Note"
 		description "Long long descr"
 	end
 end

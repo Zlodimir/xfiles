@@ -17,7 +17,7 @@ RSpec.feature "Viewing Notes" do
 		click_link "To eshe govno"
 
 		expect(page).to have_content("Make govno free!")
-		expect(page).to have_content("Standart shit")
+		expect(page).to_not have_content("Standart shit")
 
 		click_link "Make govno free!"
 		within('#note h2') do

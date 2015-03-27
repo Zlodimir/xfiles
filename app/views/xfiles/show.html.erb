@@ -28,7 +28,7 @@
 </div>
 
 <ul id='notes'>
-	<%= @xfile.notes.each do | note | %>
+	<% @xfile.notes.each do | note | %>
 		<li>
 			#<%= note.id %>
 			<%= link_to note.title, [@xfile, note] %>

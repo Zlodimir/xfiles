@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.feature "Creating Notes" do
+	let(:user) {FactoryGirl.create(:user)}
 	before do
+		login_as(user)
 		FactoryGirl.create(:xfile, name: "Some monster detected")
 		visit "/"
 		click_link "Some monster detected"
@@ -13,6 +15,10 @@ RSpec.feature "Creating Notes" do
 		fill_in "Description", with: "Some big description long long long"
 		click_button "Create Note"
 		expect(page).to have_content("Note has been created")
+
+		within("#note #author") do
+			expect(page).to have_content("Created by #{user.email}")
+		end
 	end
 
 	scenario "with missing attributes" do

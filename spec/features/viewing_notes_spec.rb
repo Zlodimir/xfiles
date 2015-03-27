@@ -2,13 +2,15 @@ require 'rails_helper'
 
 RSpec.feature "Viewing Notes" do
 	before do 
+		user = FactoryGirl.create(:user)
+
 		govno = FactoryGirl.create(:xfile, name: "To eshe govno")
 
-		FactoryGirl.create(:note, xfile: govno, title: "Make govno free!", description: "And you feel you like govno!")
+		FactoryGirl.create(:note, xfile: govno, title: "Make govno free!", description: "And you feel you like govno!", author: user)
 
 		shit = FactoryGirl.create(:xfile, name: "Another sort of shit")
 
-		FactoryGirl.create(:note, xfile: shit, title: "Standart shit", description: "Another shit of type")
+		FactoryGirl.create(:note, xfile: shit, title: "Standart shit", description: "Another shit of type", author: user)
 
 		visit "/"
 	end

@@ -2,7 +2,10 @@ require 'rails_helper'
 
 RSpec.feature "Editing Notes" do
 	let!(:xfile) {FactoryGirl.create(:xfile)}
-	let!(:note) {FactoryGirl.create(:note, xfile: xfile)}
+	let!(:user) {FactoryGirl.create(:user)}
+	let!(:note) do 
+		FactoryGirl.create(:note, xfile: xfile, author: user)
+	end
 
 	before do
 		visit xfile_note_path(xfile, note)

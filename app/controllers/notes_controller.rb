@@ -7,6 +7,7 @@ class NotesController < ApplicationController
 
 	def create
 		@note = @xfile.notes.build(note_params)
+		@note.author = current_user
 
 		if @note.save
 			flash[:notice] = "Note has been created"

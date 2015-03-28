@@ -1,8 +1,10 @@
 <div class="page-header">
 	<h1>X-Files</h1>
-	<ul class="actions">
-		<li><%= link_to "New X-File", new_xfile_path, class: "new" %></li>
-	</ul>
+	<% admin_only do %>
+		<ul class="actions">
+			<li><%= link_to "New X-File", new_admin_xfile_path, class: "new" %></li>
+		</ul>
+	<% end %>
 </div>
 
 

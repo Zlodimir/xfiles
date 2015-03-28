@@ -1,0 +1,21 @@
+
+<%= simple_form_for([:admin, xfile]) do |f| %>
+
+	<!--
+	<p>
+		<%= f.label :name, "Название" %><br>
+		<%= f.text_field :name %>
+	</p>
+
+	<p>
+		<%= f.label :description, "Дэскрипшн" %><br>
+		<%= f.text_field :description %>
+	</p>
+
+	<%= f.submit %>
+	-->
+
+	<%= f.input :name %>
+	<%= f.input :description %>
+	<%= f.button :submit, class: "btn-primary" %>
+<% end %>

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   namespace :admin do
     root 'base#index'
+
+    resources :xfiles, only: [:new, :create, :destroy]
   end
 
   devise_for :users
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
   #   end
   root 'xfiles#index'
 
-  resources :xfiles do
+  resources :xfiles, only: [:index, :show, :edit, :update] do
     resources :notes
   end
 

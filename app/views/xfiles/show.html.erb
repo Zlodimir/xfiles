@@ -4,15 +4,16 @@
 
 	<ul class="actions">
 		<li><%= link_to "Edit X-File", edit_xfile_path(@xfile), class: "edit" %></li>
-		
-		<li>
-			<%= link_to "Delete X-File", 
-				xfile_path(@xfile), 
-				method: :delete,
-				data: {confirm: "Are you sure want to delete this X-File?"},
-				class: "delete"
-			%>
-		</li>
+		<% admin_only do %>
+			<li>
+				<%= link_to "Delete X-File", 
+					admin_xfile_path(@xfile), 
+					method: :delete,
+					data: {confirm: "Are you sure want to delete this X-File?"},
+					class: "delete"
+				%>
+			</li>
+		<% end %>
 	</ul>
 </div>
 <h3><%= @xfile.description %></h3>

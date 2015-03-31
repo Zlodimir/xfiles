@@ -26,11 +26,17 @@ class Admin::UsersController < Admin::BaseController
   def edit
   end
 
+  def destroy
+    @user.destroy
+    flash[:notice] = "User has been deleted"
+    redirect_to admin_users_path
+  end
+
   def update
     if params[:user][:password].blank?
       params[:user].delete(:password)
     end
-    
+
     if @user.update(user_params)
       flash[:notice] = "User has been updated"
       redirect_to admin_users_path

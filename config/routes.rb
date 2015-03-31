@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+
   namespace :admin do
     root 'base#index'
 
     resources :xfiles, only: [:new, :create, :destroy]
+    resources :users
   end
 
   devise_for :users

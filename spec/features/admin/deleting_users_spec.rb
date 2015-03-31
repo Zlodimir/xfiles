@@ -16,6 +16,6 @@ RSpec.feature "An admin can delete users" do
 		click_link "Delete User"
 
 		expect(page).to have_content("User has been deleted")
-		epxect(page).to_not have_content user.to_s
+		expect(page).to_not have_content user.to_s
 	end
 end

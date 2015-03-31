@@ -5,15 +5,19 @@ RSpec.feature "Hidden links" do
 	let(:admin) {FactoryGirl.create(:user, :admin)}
 	let(:xfile) {FactoryGirl.create(:xfile)}
 
-	context "anonymous user" do
-		scenario "can not see the New X file link" do
-			visit "/"
-			expect(page).not_to have_link "New X-File"
-		end
-	end
+	#context "anonymous user" do
+	#	scenario "can not see the New X file link" do
+	#		visit "/"
+	#		expect(page).not_to have_link "New X-File"
+	#	end
+	#end
 
 	context "regular user" do
-		before {login_as(user)}
+		before do
+			login_as(user)
+			assign_role!(user, :viewer, xfile)
+		end
+
 		scenario "can not see the New X-file link" do
 			visit "/"
 			expect(page).not_to have_link "New X-File"
@@ -21,22 +25,28 @@ RSpec.feature "Hidden links" do
 	end	
 
 	context "admin user" do
-		before {login_as(admin)}
+		before do
+			login_as(admin)
+			assign_role!(admin, :viewer, xfile)
+		end
 		scenario "can see the New X-file link" do
 			visit "/"
 			expect(page).to have_link "New X-File"
 		end
 	end	
 
-	context "anonymous user" do
-		scenario "can not see the Delete X-file link" do
-			visit xfile_path(xfile)
-			expect(page).not_to have_link "Delete X-File"
-		end
-	end
+	#context "anonymous user" do
+	#	scenario "can not see the Delete X-file link" do
+	#		visit xfile_path(xfile)
+	#		expect(page).not_to have_link "Delete X-File"
+	#	end
+	#end
 
 	context "regular user" do
-		before {login_as(user)}
+		before do
+			login_as(user)
+			assign_role!(user, :viewer, xfile)
+		end
 		scenario "can not see the Delete X-file link" do
 			visit xfile_path(xfile)
 			expect(page).not_to have_link "Delete X-File"
@@ -44,7 +54,10 @@ RSpec.feature "Hidden links" do
 	end
 
 	context "admin user" do
-		before {login_as(admin)}
+		before do
+			login_as(admin)
+			assign_role!(admin, :viewer, xfile)
+		end
 		scenario "can see the Delete X-file link" do
 			visit xfile_path(xfile)
 			expect(page).to have_link "Delete X-File"

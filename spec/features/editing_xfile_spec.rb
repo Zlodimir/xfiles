@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature "Editing X-Files" do
+	let!(:user) {FactoryGirl.create :user}
 	before do 
+		login_as(user)
 		xfile = FactoryGirl.create(:xfile, name: "A man has been seen a UFO!")
+		assign_role!(user, :viewer, xfile)
 		visit "/"
 		click_link "A man has been seen a UFO!"
 		click_link "Edit X-File"
@@ -18,6 +21,6 @@ RSpec.feature "Editing X-Files" do
 	scenario "Updating X-file with invalid attributes" do
 		fill_in "Name", with: ""
 		click_button "Update Xfile"
-		expect(page).to have_content("X-File has not been updated")		
+		expect(page).to have_content("X-File has not been updated")
 	end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327135029) do
+ActiveRecord::Schema.define(version: 20150331081524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20150327135029) do
   end
 
   add_index "notes", ["xfile_id"], name: "index_notes_on_xfile_id", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "role"
+    t.integer  "xfile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
+  add_index "roles", ["xfile_id"], name: "index_roles_on_xfile_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -54,4 +65,6 @@ ActiveRecord::Schema.define(version: 20150327135029) do
   end
 
   add_foreign_key "notes", "xfiles"
+  add_foreign_key "roles", "users"
+  add_foreign_key "roles", "xfiles"
 end

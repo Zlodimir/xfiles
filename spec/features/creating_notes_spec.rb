@@ -4,7 +4,8 @@ RSpec.feature "Creating Notes" do
 	let(:user) {FactoryGirl.create(:user)}
 	before do
 		login_as(user)
-		FactoryGirl.create(:xfile, name: "Some monster detected")
+		xfile = FactoryGirl.create(:xfile, name: "Some monster detected")
+		assign_role!(user, :viewer, xfile)
 		visit "/"
 		click_link "Some monster detected"
 		click_link "New note"

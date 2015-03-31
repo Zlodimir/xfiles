@@ -6,12 +6,17 @@ RSpec.feature "Viewing Notes" do
 
 		govno = FactoryGirl.create(:xfile, name: "To eshe govno")
 
+		assign_role!(user, :viewer, govno)
+
 		FactoryGirl.create(:note, xfile: govno, title: "Make govno free!", description: "And you feel you like govno!", author: user)
 
 		shit = FactoryGirl.create(:xfile, name: "Another sort of shit")
 
+		assign_role!(user, :viewer, shit)
+
 		FactoryGirl.create(:note, xfile: shit, title: "Standart shit", description: "Another shit of type", author: user)
 
+		login_as(user)
 		visit "/"
 	end
 

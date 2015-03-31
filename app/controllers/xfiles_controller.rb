@@ -2,11 +2,13 @@ class XfilesController < ApplicationController
 	before_action :set_project, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@xfiles = Xfile.all
+		#@xfiles = Xfile.all
+		@xfiles = policy_scope(Xfile)
 	end
 
 	def show
 		@xfile = Xfile.find(params[:id])
+		authorize @xfile, :show?
 	end
 
 	def edit

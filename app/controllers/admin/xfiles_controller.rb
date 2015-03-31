@@ -1,11 +1,12 @@
 class Admin::XfilesController < Admin::BaseController
+	before_action :set_xfile, only: [:show, :edit, :update, :destroy]
 
 	def new
 		@xfile = Xfile.new
 	end
 
 	def create 
-		@xfile = Xfile.new(project_params)
+		@xfile = Xfile.new(xfile_params)
 
 		if @xfile.save
 			flash[:notice] = "X-File has been created."
@@ -17,7 +18,7 @@ class Admin::XfilesController < Admin::BaseController
 	end
 
 	def destroy 
-		@xfile = Xfile.find(params[:id])
+		#@xfile = Xfile.find(params[:id])
 		@xfile.destroy
 
 		flash[":notice"] = "X-File has been deleted."
@@ -27,7 +28,11 @@ class Admin::XfilesController < Admin::BaseController
 
 	private
 
-	def project_params
+	def xfile_params
 		params.require(:xfile).permit(:name, :description)
-	end	
+	end
+
+	def set_xfile
+		@xfile = Xfile.find(params[:id])
+	end
 end

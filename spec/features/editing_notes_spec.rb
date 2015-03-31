@@ -8,6 +8,8 @@ RSpec.feature "Editing Notes" do
 	end
 
 	before do
+		login_as(user)
+		assign_role!(user, :viewer, xfile)
 		visit xfile_note_path(xfile, note)
 		click_link "Edit Note"
 	end 

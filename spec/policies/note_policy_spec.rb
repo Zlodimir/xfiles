@@ -15,24 +15,28 @@ RSpec.describe NotePolicy do
       let(:user) { nil }
 
       it { should_not permit_action :show }
+      it { should_not permit_action :create }
     end
 
     context "for viewers of the xfile" do
       before { assign_role!(user, :viewer, xfile) }
 
       it { should permit_action :show }
+      it { should_not permit_action :create }
     end
 
     context "for editors of the xfile" do
       before { assign_role!(user, :editor, xfile) }
 
       it { should permit_action :show }
+      it { should permit_action :create }
     end
 
     context "for managers of the xfile" do
       before { assign_role!(user, :manager, xfile) }
 
       it { should permit_action :show }
+      it { should permit_action :create }
     end
 
     context "for managers of the other xfile" do
@@ -45,6 +49,7 @@ RSpec.describe NotePolicy do
       let(:user) { FactoryGirl.create :user, :admin }
 
       it { should permit_action :show }
+      it { should permit_action :create }
     end
 
   end

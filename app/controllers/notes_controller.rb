@@ -3,12 +3,15 @@ class NotesController < ApplicationController
 	before_action :set_note, only: [:show, :edit, :update, :destroy]
 	def new
 		@note = @xfile.notes.build
+
+		authorize @note, :create?
 	end
 
 	def create
 		@note = @xfile.notes.build(note_params)
 		@note.author = current_user
-
+		authorize @note, :create?
+		
 		if @note.save
 			flash[:notice] = "Note has been created"
 			redirect_to [@xfile, @note]

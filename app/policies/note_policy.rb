@@ -6,6 +6,12 @@ class NotePolicy < ApplicationPolicy
   end
 
   def show?
-  	user.try(:admin?) || record.xfile.roles.exists?(user_id: user)
+  	user.try(:admin?) || record.xfile.has_member?(user)
+  end
+
+  def create?
+  	user.try(:admin?) ||
+  	record.xfile.has_manager?(user) ||
+  	record.xfile.has_editor?(user)
   end
 end

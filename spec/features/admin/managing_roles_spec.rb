@@ -28,4 +28,20 @@ RSpec.feature "Admin can manage user's roles" do
 		expect(page).to have_content("Govno detected: Viewer")
 		expect(page).to have_content("Shit detected: Manager")
 	end
+
+	scenario "when assigning roles to new user" do
+		click_link "New User"
+
+		fill_in "Email", with: "newfuckinguser@xfile.com"
+		fill_in "Password", with: "123456789"
+
+		select "Editor", from: "Govno detected"
+
+		click_button "Create User"
+
+		click_link "newfuckinguser@xfile.com"
+		expect(page).to have_content("Govno detected: Editor")
+		expect(page).not_to have_content("Shit detected")
+	end
+
 end

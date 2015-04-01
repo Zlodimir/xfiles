@@ -1,0 +1,51 @@
+require 'rails_helper'
+
+RSpec.describe NotePolicy do
+
+  subject { NotePolicy }
+
+  context "permissions" do
+    subject { NotePolicy.new(user, note) }
+
+    let(:user) { FactoryGirl.create(:user) }
+    let(:xfile) { FactoryGirl.create(:xfile) }
+    let(:note){ FactoryGirl.create(:note, xfile: xfile) }
+
+    context "for anonymous users" do
+      let(:user) { nil }
+
+      it { should_not permit_action :show }
+    end
+
+    context "for viewers of the xfile" do
+      before { assign_role!(user, :viewer, xfile) }
+
+      it { should permit_action :show }
+    end
+
+    context "for editors of the xfile" do
+      before { assign_role!(user, :editor, xfile) }
+
+      it { should permit_action :show }
+    end
+
+    context "for managers of the xfile" do
+      before { assign_role!(user, :manager, xfile) }
+
+      it { should permit_action :show }
+    end
+
+    context "for managers of the other xfile" do
+      before { assign_role!(user, :manager, FactoryGirl.create(:xfile)) }
+
+      it { should_not permit_action :show }
+    end
+
+    context "for administrators" do
+      let(:user) { FactoryGirl.create :user, :admin }
+
+      it { should permit_action :show }
+    end
+
+  end
+end

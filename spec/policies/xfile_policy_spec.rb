@@ -30,74 +30,53 @@ describe XfilePolicy do
     end
   end
 
-  permissions :show? do
-    let(:user) { FactoryGirl.create :user }
-    let(:xfile) {FactoryGirl.create :xfile }
+  context "permissions" do
+    subject { XfilePolicy.new(user, xfile) }
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:xfile) { FactoryGirl.create(:xfile) }
 
-    it "blocks anonymous users" do
-      expect(subject).not_to permit(nil, xfile)
+    context "for anonymous users" do
+      let(:user) { nil }
+
+      it { should_not permit_action :show }
+      it { should_not permit_action :update }
     end
 
-    it "allows viewers of the xfile" do
-      assign_role!(user, :viewer, xfile)
-      expect(subject).to permit(user, xfile)
+    context "for viewers of the xfile" do
+      before { assign_role!(user, :viewer, xfile) }
+
+      it { should permit_action :show }
+      it { should_not permit_action :update }
     end
 
-    it "allows editors of the xfile" do
-      assign_role!(user, :editor, xfile)
-      expect(subject).to permit(user, xfile)
+    context "for editors of the xfile" do
+      before { assign_role!(user, :editor, xfile) }
+
+      it { should permit_action :show }
+      it { should_not permit_action :update }
     end
 
-    it "allows managers of the xfile" do
-      assign_role!(user, :manager, xfile)
-      expect(subject).to permit(user, xfile)
+    context "for managers of the xfile" do
+      before { assign_role!(user, :manager, xfile) }
+
+      it { should permit_action :show }
+      it { should permit_action :update }
     end
 
-    it "allows administrators" do
-      admin = FactoryGirl.create :user, :admin
-      expect(subject).to permit(admin, xfile)
+    context "for managers of the other xfile" do
+      before { assign_role!(user, :manager, FactoryGirl.create(:xfile)) }
+
+      it { should_not permit_action :show }
+      it { should_not permit_action :update }
     end
 
-    it "doesn't allow users assigned to other xfiles" do
-      other_xfile = FactoryGirl.create :xfile
-      assign_role!(user, :manager, other_xfile)
-      expect(subject).not_to permit(user, xfile)
-    end
-  end
+    context "for administrators" do
+      let(:user) { FactoryGirl.create :user, :admin }
 
-permissions :update? do
-    let(:user) { FactoryGirl.create :user }
-    let(:xfile) {FactoryGirl.create :xfile }
-
-    it "blocks anonymous users" do
-      expect(subject).not_to permit(nil, xfile)
+      it { should permit_action :show }
+      it { should permit_action :update }
     end
 
-    it "doesn't allows viewers of the xfile" do
-      assign_role!(user, :viewer, xfile)
-      expect(subject).not_to permit(user, xfile)
-    end
-
-    it "doesn't allows editors of the xfile" do
-      assign_role!(user, :editor, xfile)
-      expect(subject).not_to permit(user, xfile)
-    end
-
-    it "it allows managers of the xfile" do
-      assign_role!(user, :manager, xfile)
-      expect(subject).to permit(user, xfile)
-    end
-
-    it "allows administrators" do
-      admin = FactoryGirl.create :user, :admin
-      expect(subject).to permit(admin, xfile)
-    end
-
-    it "doesn't allow users assigned to other xfiles" do
-      other_xfile = FactoryGirl.create :xfile
-      assign_role!(user, :manager, other_xfile)
-      expect(subject).not_to permit(user, xfile)
-    end
   end
 
 end

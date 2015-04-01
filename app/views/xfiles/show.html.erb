@@ -3,7 +3,9 @@
 	<h1><%= @xfile.name %></h1>
 
 	<ul class="actions">
-		<li><%= link_to "Edit X-File", edit_xfile_path(@xfile), class: "edit" %></li>
+		<% if policy(@xfile).update? %>
+			<li><%= link_to "Edit X-File", edit_xfile_path(@xfile), class: "edit" %></li>
+		<% end %>
 		<% admin_only do %>
 			<li>
 				<%= link_to "Delete X-File", 

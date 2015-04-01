@@ -22,6 +22,11 @@ RSpec.feature "Hidden links" do
 			visit "/"
 			expect(page).not_to have_link "New X-File"
 		end
+
+		scenario "can not see Edit Xfile link" do
+			visit xfile_path(xfile)
+			expect(page).not_to have_link "Edit X-File"
+		end
 	end	
 
 	context "admin user" do
@@ -32,6 +37,11 @@ RSpec.feature "Hidden links" do
 		scenario "can see the New X-file link" do
 			visit "/"
 			expect(page).to have_link "New X-File"
+		end
+
+		scenario "can see Edit Xfile link" do
+			visit xfile_path(xfile)
+			expect(page).to have_link "Edit X-File"
 		end
 	end	
 

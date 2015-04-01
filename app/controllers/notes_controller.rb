@@ -19,7 +19,7 @@ class NotesController < ApplicationController
 	end
 
 	def show
-
+		authorize @xfile, :show?
 	end
 
 	def edit

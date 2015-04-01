@@ -22,6 +22,9 @@ RSpec.feature "Admin can manage user's roles" do
 		select "Manager", from: "Shit detected"
 
 		click_button "Update User"
+		expect(page).to have_content("User has been updated")
+
+		click_link user.email
 		expect(page).to have_content("Govno detected: Viewer")
 		expect(page).to have_content("Shit detected: Manager")
 	end

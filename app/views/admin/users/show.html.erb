@@ -6,3 +6,19 @@
 		<li><%= link_to "Delete User", admin_user_path(@user), method: :delete, data: {confirm: "Are you sure want to delete user?"}, class: "delete" %></li>
 	</ul>
 </div>
+
+<header>
+	<h2>Roles</h2>
+</header>
+
+<% if @user.roles.any? %>
+	<ul>
+		<% @user.roles.each do | role | %>
+			<li>
+				<%= role.xfile.name %>: <%= role.role.titleize %>
+			</li>
+		<% end %>
+	</ul>
+<% else %>
+	<p>This user has no roles</p>
+<% end %>

@@ -12,11 +12,13 @@ class XfilesController < ApplicationController
 	end
 
 	def edit
-		@xfile = Xfile.find(params[:id])
+		authorize @xfile, :update?
+		#@xfile = Xfile.find(params[:id])
 	end
 
 	def update
-		@xfile = Xfile.find(params[:id])
+		authorize @xfile, :update?
+		#@xfile = Xfile.find(params[:id])
 		if @xfile.update(project_params)
 			flash[":notice"] = "X-File has been updated"
 			redirect_to @xfile

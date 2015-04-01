@@ -5,7 +5,7 @@ RSpec.feature "Editing X-Files" do
 	before do 
 		login_as(user)
 		xfile = FactoryGirl.create(:xfile, name: "A man has been seen a UFO!")
-		assign_role!(user, :viewer, xfile)
+		assign_role!(user, :manager, xfile)
 		visit "/"
 		click_link "A man has been seen a UFO!"
 		click_link "Edit X-File"

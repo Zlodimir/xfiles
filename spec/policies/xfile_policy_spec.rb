@@ -65,4 +65,39 @@ describe XfilePolicy do
     end
   end
 
+permissions :update? do
+    let(:user) { FactoryGirl.create :user }
+    let(:xfile) {FactoryGirl.create :xfile }
+
+    it "blocks anonymous users" do
+      expect(subject).not_to permit(nil, xfile)
+    end
+
+    it "doesn't allows viewers of the xfile" do
+      assign_role!(user, :viewer, xfile)
+      expect(subject).not_to permit(user, xfile)
+    end
+
+    it "doesn't allows editors of the xfile" do
+      assign_role!(user, :editor, xfile)
+      expect(subject).not_to permit(user, xfile)
+    end
+
+    it "it allows managers of the xfile" do
+      assign_role!(user, :manager, xfile)
+      expect(subject).to permit(user, xfile)
+    end
+
+    it "allows administrators" do
+      admin = FactoryGirl.create :user, :admin
+      expect(subject).to permit(admin, xfile)
+    end
+
+    it "doesn't allow users assigned to other xfiles" do
+      other_xfile = FactoryGirl.create :xfile
+      assign_role!(user, :manager, other_xfile)
+      expect(subject).not_to permit(user, xfile)
+    end
+  end
+
 end

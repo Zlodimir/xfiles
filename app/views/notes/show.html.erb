@@ -2,8 +2,12 @@
 	<div class="page-header">
 		<h1><%= @xfile.name %></h1>
 		<ul class="actions">
-			<li><%= link_to "Edit Note", [:edit, @xfile, @note], class: "edit" %></li>
-			<li><%= link_to "Delete Note", [@xfile, @note], method: :delete, data: {confirm: "Are you sure want to delete this note?"}, class: "delete" %></li>
+			<% if policy(@note).update? %>
+				<li><%= link_to "Edit Note", [:edit, @xfile, @note], class: "edit" %></li>
+			<% end %>
+			<% if policy(@note).destroy? %>
+				<li><%= link_to "Delete Note", [@xfile, @note], method: :delete, data: {confirm: "Are you sure want to delete this note?"}, class: "delete" %></li>
+			<% end %>
 		</ul>
 		<h2><%= @note.title %></h2>
 	</div>

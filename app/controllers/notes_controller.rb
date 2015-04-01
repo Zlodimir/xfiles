@@ -26,10 +26,12 @@ class NotesController < ApplicationController
 	end
 
 	def edit
-
+		authorize @note, :update?
 	end
 
 	def update
+		authorize @note, :update?
+
 		if @note.update(note_params)
 			flash[:notice] = "Note has been updated"
 			redirect_to [@xfile, @note]
@@ -40,6 +42,7 @@ class NotesController < ApplicationController
 	end
 
 	def destroy
+		authorize @note, :destroy?
 		@note.destroy
 
 		flash[:notice] = "Note has been deleted"

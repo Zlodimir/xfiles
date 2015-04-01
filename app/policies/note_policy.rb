@@ -14,4 +14,14 @@ class NotePolicy < ApplicationPolicy
   	record.xfile.has_manager?(user) ||
   	record.xfile.has_editor?(user)
   end
+
+  def update?
+    user.try(:admin?) ||
+    record.xfile.has_manager?(user) ||
+    (record.xfile.has_editor?(user) && record.author == user)
+  end
+
+  def destroy?
+    user.try(:admin?) || record.xfile.has_manager?(user)
+  end
 end

@@ -1,5 +1,7 @@
 class Admin::UsersController < Admin::BaseController
+  before_action :set_xfiles, only: [:new, :create, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
   def index
   	@users = User.order(:email)
   end
@@ -52,6 +54,10 @@ class Admin::UsersController < Admin::BaseController
   end
 
   private
+
+  def set_xfiles
+    @xfiles = Xfile.order(:name)
+  end
 
   def user_params
   	params.require(:user).permit(:email, :password, :admin)

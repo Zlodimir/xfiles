@@ -2,5 +2,19 @@
 	<%= f.input :email %>
 	<%= f.input :password %>
 	<%= f.input :admin, label: "Is an admin?" %>
+	<header><h2>Roles</h2></header>
+
+	<table class="roles">
+		<% @xfiles.each do | xfile | %>
+			<tr>
+				<th><%= label_tag dom_id(xfile), xfile.name %></th>
+				<td>
+					<%= select_tag dom_id(xfile), options_for_select(roles, @user.role_on(@xfile)), name: "roles[#{xfile.id}]",
+					include_blank: true %>
+				</td>
+			</tr>
+		<% end %>
+	</table>
+
 	<%= f.button :submit, class: "btn btn-primary" %>
 <% end %>

@@ -25,7 +25,9 @@
 
 	<ul class="actions">
 		<li>
-			<%= link_to "New note", new_xfile_note_path(@xfile), class: "new" %>
+			<% if policy(Note.new(xfile: @xfile)).create? %>
+				<%= link_to "New note", new_xfile_note_path(@xfile), class: "new" %>
+			<% end %>
 		</li>
 	</ul>
 </div>

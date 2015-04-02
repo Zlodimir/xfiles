@@ -40,12 +40,38 @@ RSpec.feature "Creating Notes" do
 	scenario "with an attachment" do
 		fill_in "Title", with: "Some note"
 		fill_in "Description", with: "Some long long note"
-		attach_file "File", Rails.root.join("spec/fixtures/speed.txt")
+		attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
 		click_button "Create Note"
 		expect(page).to have_content("Note has been created")
 		expect(page).to have_link("speed.txt")
-		#within("#note .asset") do
+		#within("#note .assets") do
 		#	expect(page).to have_content("speed.txt")
 		#end
 	end	
+
+	scenario "persisting file uploads accross from displays" do
+		attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
+		click_button "Create Note"
+		fill_in "Title", with: "Some note"
+		fill_in "Description", with: "Some long long note"
+		click_button "Create Note"
+		expect(page).to have_link("speed.txt")
+	end
+
+	scenario "with multiple " do
+		fill_in "Title", with: "Some note"
+		fill_in "Description", with: "Some long long note"
+		
+		attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
+		attach_file "File #2", Rails.root.join("spec/fixtures/spin.txt")
+		attach_file "File #3", Rails.root.join("spec/fixtures/gradient.txt")
+
+		click_button "Create Note"
+
+		expect(page).to have_content("Note has been created")
+
+		expect(page).to have_link("speed.txt")
+		expect(page).to have_link("spin.txt")
+		expect(page).to have_link("gradient.txt")
+	end
 end

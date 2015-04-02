@@ -5,6 +5,8 @@ class NotesController < ApplicationController
 		@note = @xfile.notes.build
 
 		authorize @note, :create?
+
+		3.times {@note.assets.build}
 	end
 
 	def create
@@ -60,6 +62,6 @@ class NotesController < ApplicationController
 	end
 
 	def note_params
-		params.require(:note).permit(:title, :description, :asset)
+		params.require(:note).permit(:title, :description, assets_attributes: [:asset, :asset_cache])
 	end
 end

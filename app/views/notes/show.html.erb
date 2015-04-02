@@ -14,7 +14,18 @@
 
 
 	<%= simple_format(@note.description) %>
+	<% if @note.asset.present? %>
+		<h4>Attached File</h4>
+		<div class="asset"></div>
+			<!--<p>-->
+				<%= link_to File.basename(@note.asset.url), @note.asset.url %>
+				(<%= number_to_human_size(@note.asset.size) %>)
+			<!--</p>-->
+		</div>
+	<% end %>
+
 	<p id="author">
 		Created by <%= @note.author.email %>, <%= time_ago_in_words(@note.created_at) %>
 	</p>
-</div>	
+
+</div>

@@ -36,4 +36,16 @@ RSpec.feature "Creating Notes" do
 		#expect(page).to have_content("Note has not been created")
 		expect(page).to have_content("Description is too short")
 	end	
+
+	scenario "with an attachment" do
+		fill_in "Title", with: "Some note"
+		fill_in "Description", with: "Some long long note"
+		attach_file "File", Rails.root.join("spec/fixtures/speed.txt")
+		click_button "Create Note"
+		expect(page).to have_content("Note has been created")
+		expect(page).to have_link("speed.txt")
+		#within("#note .asset") do
+		#	expect(page).to have_content("speed.txt")
+		#end
+	end	
 end

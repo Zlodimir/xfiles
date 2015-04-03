@@ -6,7 +6,8 @@ class NotesController < ApplicationController
 
 		authorize @note, :create?
 
-		3.times {@note.assets.build}
+		#3.times { @note.assets.build }
+		@note.assets.build
 	end
 
 	def create

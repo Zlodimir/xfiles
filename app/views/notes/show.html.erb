@@ -10,6 +10,9 @@
 			<% end %>
 		</ul>
 		<h2><%= @note.title %></h2>
+		<% if @note.state.present? %>
+			State: <%= render @note.state %>
+		<% end %>
 	</div>
 
 

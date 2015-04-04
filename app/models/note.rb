@@ -1,6 +1,7 @@
 class Note < ActiveRecord::Base
   belongs_to :xfile
   belongs_to :author, class_name: "User"
+  belongs_to :state
   has_many :assets, dependent: :destroy
   has_many :comments, dependent: :destroy
 

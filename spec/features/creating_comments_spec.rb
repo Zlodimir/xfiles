@@ -8,6 +8,7 @@ RSpec.feature "User can comment on ticket" do
 	before do
 		login_as(user)
 		assign_role!(user, :manager, xfile)
+		FactoryGirl.create(:state, name: "Open")
 
 		visit xfile_note_path(xfile, note)
 		#click_link xfile.name
@@ -29,5 +30,16 @@ RSpec.feature "User can comment on ticket" do
 		click_button "Create Comment"
 
 		expect(page).to have_content("Comment has not been created")
+	end
+
+	scenario "with changing a note status" do
+		fill_in "Text", with: "This is a real issue"
+		select "Open", from: "State"
+		click_button "Create Comment"
+
+		expect(page).to have_content("Comment has been created")
+		#within("#note .state") do
+		#	expect(page).to have_content("Open")
+		#end
 	end
 end

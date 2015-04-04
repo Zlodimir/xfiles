@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403121019) do
+ActiveRecord::Schema.define(version: 20150404122802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150403121019) do
     t.integer  "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "state_id"
   end
 
   add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
@@ -43,6 +44,7 @@ ActiveRecord::Schema.define(version: 20150403121019) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "author_id"
+    t.integer  "state_id"
   end
 
   add_index "notes", ["xfile_id"], name: "index_notes_on_xfile_id", using: :btree
@@ -57,6 +59,14 @@ ActiveRecord::Schema.define(version: 20150403121019) do
 
   add_index "roles", ["user_id"], name: "index_roles_on_user_id", using: :btree
   add_index "roles", ["xfile_id"], name: "index_roles_on_xfile_id", using: :btree
+
+  create_table "states", force: :cascade do |t|
+    t.string   "name"
+    t.string   "color"
+    t.string   "background"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

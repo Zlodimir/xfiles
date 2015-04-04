@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  belongs_to :state
   belongs_to :note
   belongs_to :author, class_name: "User"
 

@@ -45,12 +45,16 @@ RSpec.feature "Hidden links" do
 			visit xfile_note_path(xfile, note)
 			expect(page).not_to have_link "Delete Note"
 		end
+
+		scenario "can not see New Comment form" do
+			visit xfile_note_path(xfile, note)
+			expect(page).not_to have_heading "New comment"
+		end
 	end	
 
 	context "admin user" do
 		before do
 			login_as(admin)
-			assign_role!(admin, :viewer, xfile)
 		end
 		scenario "can see the New X-file link" do
 			visit "/"
@@ -75,6 +79,11 @@ RSpec.feature "Hidden links" do
 		scenario "can see Delete Note link" do
 			visit xfile_note_path(xfile, note)
 			expect(page).to have_link "Delete Note"
+		end
+
+		scenario "can see New Comment form" do
+			visit xfile_note_path(xfile, note)
+			expect(page).to have_heading "New comment"
 		end
 	end	
 

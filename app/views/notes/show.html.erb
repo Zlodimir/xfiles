@@ -31,3 +31,17 @@
 	</p>
 
 </div>
+
+<header>
+	<h3>Comments</h3>
+</header>
+<div id="comments">
+	<% if @note.comments.select(&:persisted?).any? %>
+		<%= render @note.comments.select(&:persisted?) %>
+	<% else %>
+		<p>There are no comments for this note</p>
+	<% end %>
+</div>
+<% if policy(@comment).create? %>
+	<%= render "comments/form", note: @note, comment: @comment %>
+<% end %>

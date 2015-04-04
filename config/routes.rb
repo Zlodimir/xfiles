@@ -68,5 +68,9 @@ Rails.application.routes.draw do
     resources :notes
   end
 
+  resources :notes, only: [] do
+    resources :comments, only: [:create]
+  end
+
   resources :assets, only: [:show, :new], path: :files
 end

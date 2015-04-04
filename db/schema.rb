@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402133800) do
+ActiveRecord::Schema.define(version: 20150403121019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,17 @@ ActiveRecord::Schema.define(version: 20150402133800) do
   end
 
   add_index "assets", ["note_id"], name: "index_assets_on_note_id", using: :btree
+
+  create_table "comments", force: :cascade do |t|
+    t.text     "text"
+    t.integer  "note_id"
+    t.integer  "author_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
+  add_index "comments", ["note_id"], name: "index_comments_on_note_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.string   "title"
@@ -74,6 +85,8 @@ ActiveRecord::Schema.define(version: 20150402133800) do
   end
 
   add_foreign_key "assets", "notes"
+  add_foreign_key "comments", "notes"
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "notes", "xfiles"
   add_foreign_key "roles", "users"
   add_foreign_key "roles", "xfiles"

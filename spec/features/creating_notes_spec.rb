@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Creating Notes" do
 	let(:user) {FactoryGirl.create(:user)}
+	let!(:state) { FactoryGirl.create(:state, default: true, name: "New")}
 	before do
 		login_as(user)
 		xfile = FactoryGirl.create(:xfile, name: "Some monster detected")
@@ -16,6 +17,7 @@ RSpec.feature "Creating Notes" do
 		fill_in "Description", with: "Some big description long long long"
 		click_button "Create Note"
 		expect(page).to have_content("Note has been created")
+		expect(page).to have_content("State: New")
 
 		within("#note #author") do
 			expect(page).to have_content("Created by #{user.email}")

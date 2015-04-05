@@ -1,6 +1,6 @@
 <div id="note">
 	<div class="page-header">
-		<h1><%= @xfile.name %></h1>
+		<h1><%= link_to @xfile.name, xfile_path(@xfile) %></h1>
 		<ul class="actions">
 			<% if policy(@note).update? %>
 				<li><%= link_to "Edit Note", [:edit, @xfile, @note], class: "edit" %></li>
@@ -19,7 +19,7 @@
 	<%= simple_format(@note.description) %>
 	<% if @note.assets.any? %>
 		<h4>Attached Files</h4>
-		<div class="assets"></div>
+		<div class="assets">
 			<% @note.assets.each do | asset | %>
 			<!--<p>-->
 				<%= link_to File.basename(asset.asset.url), asset_path(asset) %>

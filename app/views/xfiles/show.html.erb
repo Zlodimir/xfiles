@@ -37,6 +37,7 @@
 		<li>
 			#<%= note.id %>
 			<%= link_to note.title, [@xfile, note] %>
+			<%= render note.state if note.state %>
 		</li>
 	<% end %>
 </ul>

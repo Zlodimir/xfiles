@@ -14,7 +14,7 @@ unless User.exists?(email: "user@xfile.com")
 end
 
 ["Ebala detected", "Chupacabra detected"].each do | name |
-	if not Xfile.exists?(name: name) 
+	if not Xfile.exists?(name: name)
 		x = Xfile.create(name: name, description: "A sample xfile about #{name}")
 	else
 		x = Xfile.where(name: name).first
@@ -24,4 +24,11 @@ end
 		u = User.where(email: "admin@xfile.com").first
 		Note.create(title: "#{name} note", description: "A long note description about #{name}", xfile: x, author: u)
 	end
+end
+
+unless State.exists?
+	State.create(name: "New", background: "#0066CC", color: "white")
+	State.create(name: "Open", background: "#008000", color: "white")
+	State.create(name: "Closed", background: "#990000", color: "white")
+	State.create(name: "Avesome", background: "#663399", color: "white")
 end

@@ -26,7 +26,7 @@ class NotesController < ApplicationController
 
 	def show
 		authorize @xfile, :show?
-		@comment = @note.comments.build
+		@comment = @note.comments.build(state_id: @note.state_id)
 	end
 
 	def edit

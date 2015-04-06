@@ -1,7 +1,8 @@
 <%= simple_form_for [xfile, note] do |f| %>
 	<%= f.input :title %>
 	<%= f.input :description %>
-	<%= f.input :tag_names, label:"Tags" %>
+	<!--<%= f.input :tag_names, label:"Tags" %>-->
+	<%= render "tags/form", f: f %>
 	<div id="assets">
 		<h3>Supporting files</h3>
 		<%= render partial: "assets/form", locals: {f: f, index: 0} %>

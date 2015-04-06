@@ -52,4 +52,17 @@ RSpec.feature "User can comment on ticket" do
 		visit xfile_note_path(xfile, note)
 		expect(page).not_to have_select("State")
 	end
+
+	scenario "when adding a new tag to a ticket" do
+		expect(page).not_to have_content("bug")
+
+		fill_in "Text", with: "Some comments text"
+		fill_in "Tags", with: "bug"
+		click_button "Create Comment"
+
+		expect(page).to have_content("Comment has been created")
+		#within("#note #tags .tag") do
+			#expect(page).to have_content("bug")
+		#end
+	end
 end

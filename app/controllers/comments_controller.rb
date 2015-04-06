@@ -1,10 +1,7 @@
 class CommentsController < ApplicationController
 	before_action :set_note
 	def create
-		whitelisted_params = comment_params
-		unless policy(@note).change_state?
-			whitelisted_params.delete(:state_id)
-		end
+		whitelisted_params = sanitize_parameters!
 		@comment = @note.comments.build(whitelisted_params)
 		@comment.author = current_user
 		authorize @comment, :create?
@@ -24,6 +21,18 @@ private
 	end
 
 	def comment_params
-		params.require(:comment).permit(:text, :state_id)
+		params.require(:comment).permit(:text, :state_id, :tag_names)
+	end
+
+	def sanitize_parameters!
+		whitelisted_params = comment_params
+		unless policy(@note).change_state?
+			whitelisted_params.delete(:state_id)
+		end
+		unless policy(@note).tag?
+			whitelisted_params.delete(:tag_names)
+		end
+
+		whitelisted_params
 	end
 end

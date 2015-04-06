@@ -7,5 +7,8 @@
 	<% if policy(note).change_state? %>
 		<%= f.association :state %>
 	<% end %>
+	<% if policy(note).tag? %>
+		<%= render "tags/form", f: f %>
+	<% end %>
 	<%= f.submit class: "btn btn-primary" %>
 <% end %>

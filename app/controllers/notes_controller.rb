@@ -11,7 +11,13 @@ class NotesController < ApplicationController
 	end
 
 	def create
-		@note = @xfile.notes.build(note_params)
+		whitelisted_params = note_params
+		@note = @xfile.notes.new
+		#@note = @xfile.notes.build(note_params)
+		unless policy(@note).tag?
+			whitelisted_params.delete(:tag_names)
+		end
+		@note.attributes = whitelisted_params
 		@note.author = current_user
 		authorize @note, :create?
 		

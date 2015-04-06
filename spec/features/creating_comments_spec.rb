@@ -45,4 +45,11 @@ RSpec.feature "User can comment on ticket" do
 			expect(page).to have_content("state changed to Open")
 		end
 	end
+
+	scenario "can not change the state without permission" do
+		assign_role!(user, :editor, xfile)
+		#click_link note.title
+		visit xfile_note_path(xfile, note)
+		expect(page).not_to have_select("State")
+	end
 end

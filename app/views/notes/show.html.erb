@@ -11,7 +11,10 @@
 		</ul>
 		<h2><%= @note.title %></h2>
 		<% if @note.state.present? %>
-			State: <%= render @note.state %>
+			<p>State: <%= render @note.state %></p>
+			<% if @note.tags.any? %>
+				<div id="tags">Tags: <%= render @note.tags %></div>
+			<% end %>
 		<% end %>
 	</div>
 

@@ -62,7 +62,7 @@ RSpec.feature "Creating Notes" do
 
 	scenario "with multiple attachments", js: true do
 		fill_in "Title", with: "Some note"
-		fill_in "Description", with: "Some long long note"
+		fill_in "Description", with: "Some lodng long note"
 		
 		attach_file "File #1", Rails.root.join("spec/fixtures/speed.txt")
 
@@ -79,5 +79,17 @@ RSpec.feature "Creating Notes" do
 		expect(page).to have_link("speed.txt")
 		expect(page).to have_link("spin.txt")
 		#expect(page).to have_link("gradient.txt")
+	end
+
+	scenario "with associated tags" do
+		fill_in "Title", with: "Some note"
+		fill_in "Description", with: "Some long long long long"
+		fill_in "Tags", with: "browser,visual"
+		click_button "Create Note"
+		expect(page).to have_content("Note has been created")
+		within("#note .page-header #tags") do
+			expect(page).to have_content("browser")
+			expect(page).to have_content("visual")
+		end
 	end
 end

@@ -1,7 +1,11 @@
 class CommentsController < ApplicationController
 	before_action :set_note
 	def create
-		@comment = @note.comments.build(comment_params)
+		whitelisted_params = comment_params
+		unless policy(@note).change_state?
+			whitelisted_params.delete(:state_id)
+		end
+		@comment = @note.comments.build(whitelisted_params)
 		@comment.author = current_user
 		authorize @comment, :create?
 

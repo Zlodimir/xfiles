@@ -64,6 +64,6 @@ class NotesController < ApplicationController
 	end
 
 	def note_params
-		params.require(:note).permit(:title, :description, assets_attributes: [:asset, :asset_cache])
+		params.require(:note).permit(:title, :description, :tag_names, assets_attributes: [:asset, :asset_cache])
 	end
 end

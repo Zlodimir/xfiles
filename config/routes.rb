@@ -70,7 +70,11 @@ Rails.application.routes.draw do
   root 'xfiles#index'
 
   resources :xfiles, only: [:index, :show, :edit, :update] do
-    resources :notes
+    resources :notes do
+      collection do
+        get :search
+      end
+    end
   end
 
   resources :notes, only: [] do

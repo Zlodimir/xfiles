@@ -7,8 +7,9 @@ class XfilesController < ApplicationController
 	end
 
 	def show
-		@xfile = Xfile.find(params[:id])
 		authorize @xfile, :show?
+		#@xfile = Xfile.find(params[:id])
+		@notes = @xfile.notes
 	end
 
 	def edit

@@ -9,6 +9,10 @@ class Note < ActiveRecord::Base
   has_and_belongs_to_many :tags, uniq: true
   attr_accessor :tag_names
 
+  searcher do
+    label :tag, from: :tags, field: "name"
+  end
+
   validates :title, presence: true
   validates :description, presence: true, length: {minimum: 10}
 
@@ -20,6 +24,8 @@ class Note < ActiveRecord::Base
       self.tags << Tag.find_or_initialize_by(name: name)
     end
   end
+
+
 
   private
 

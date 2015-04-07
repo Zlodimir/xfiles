@@ -59,7 +59,13 @@ class NotesController < ApplicationController
 		redirect_to @xfile
 	end
 
-	private 
+	def search
+		authorize @xfile, :show?
+		@notes = @xfile.notes.search(params[:search] || "")
+		render "xfiles/show"
+	end
+
+	private
 
 	def set_xfile
 		@xfile = Xfile.find(params[:xfile_id])

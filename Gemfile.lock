@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/radar/searcher.git
+  revision: c2975124e11677825481ced9539f16f0cb0640de
+  specs:
+    searcher (0.0.7)
+      activerecord (~> 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -65,7 +72,7 @@ GEM
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
@@ -81,7 +88,7 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.2.5)
     erubis (2.7.0)
-    execjs (2.4.0)
+    execjs (2.5.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -188,7 +195,7 @@ GEM
     simple_form (3.1.0)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
-    spring (1.3.3)
+    spring (1.3.4)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -239,6 +246,7 @@ DEPENDENCIES
   rspec-rails (~> 3.1.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  searcher!
   selenium-webdriver (~> 2.45.0)
   simple_form (= 3.1.0)
   spring

@@ -1,4 +1,6 @@
 <div class="tag">
-	<%= link_to "<span></span>".html_safe, "#", class: "remove", title: "remove" %>
+	<% if policy(note).tag? %>
+		<%= link_to "<span></span>".html_safe, remove_note_tag_path(note, tag), method: :delete, remote: true, class: "remove", title: "remove" %>
+	<% end %>
 	<%= tag.name %>
 </div>

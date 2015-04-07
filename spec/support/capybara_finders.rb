@@ -4,6 +4,10 @@ module CapybaraFinders
 		#find("div ul li", text: content)
 		#find("div [@id=states]", text: content)
 	end
+
+	def tag(name)
+		find("div .tag", text: name)
+	end
 end
 
 RSpec.configure do |c|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150406123035) do
+ActiveRecord::Schema.define(version: 20150407141545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(version: 20150406123035) do
   add_index "comments", ["author_id"], name: "index_comments_on_author_id", using: :btree
   add_index "comments", ["note_id"], name: "index_comments_on_note_id", using: :btree
   add_index "comments", ["previous_state_id"], name: "index_comments_on_previous_state_id", using: :btree
+
+  create_table "note_watchers", id: false, force: :cascade do |t|
+    t.integer "note_id", null: false
+    t.integer "user_id", null: false
+  end
+
+  add_index "note_watchers", ["note_id", "user_id"], name: "index_note_watchers_on_note_id_and_user_id", using: :btree
+  add_index "note_watchers", ["user_id", "note_id"], name: "index_note_watchers_on_user_id_and_note_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.string   "title"
@@ -82,14 +90,6 @@ ActiveRecord::Schema.define(version: 20150406123035) do
   create_table "tags", force: :cascade do |t|
     t.string "name"
   end
-
-  create_table "tags_tickets", id: false, force: :cascade do |t|
-    t.integer "tag_id",    null: false
-    t.integer "ticket_id", null: false
-  end
-
-  add_index "tags_tickets", ["tag_id", "ticket_id"], name: "index_tags_tickets_on_tag_id_and_ticket_id", using: :btree
-  add_index "tags_tickets", ["ticket_id", "tag_id"], name: "index_tags_tickets_on_ticket_id_and_tag_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false

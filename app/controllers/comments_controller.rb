@@ -2,16 +2,16 @@ class CommentsController < ApplicationController
 	before_action :set_note
 	def create
 		whitelisted_params = sanitize_parameters!
-		@comment = @note.comments.build(whitelisted_params)
-		@comment.author = current_user
-		authorize @comment, :create?
+		@creator = CommentCreator.build(@note.comments, current_user, whitelisted_params)
+		authorize @note, :create?
 
-		if @comment.save
+		if @creator.save
 			flash[:notice] = "Comment has been created"
 			redirect_to xfile_note_path(@note.xfile, @note)
 		else
 			flash.now[:alert] = "Comment has not been created"
 			@xfile = @note.xfile
+			@comment = @creator.comment
 			render "notes/show"
 		end
 	end

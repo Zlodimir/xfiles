@@ -1,0 +1,7 @@
+Hello!
+<%= @note.title %> for <%= @xfile.name %> has been updated
+<%= @comment.author.email %> wrote:
+<%= @comment.text %>
+
+You can view this note online by going to: 
+<%= xfile_note_url(@xfile, @note) %>

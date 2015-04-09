@@ -49,6 +49,8 @@ gem "database_cleaner", "~> 1.4.0"
 
 gem "searcher", github: "radar/searcher"
 
+gem "fog", '~> 1.16.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

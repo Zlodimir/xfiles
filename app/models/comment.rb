@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   after_create :associate_tags_with_note
+  after_create :author_watches_note
   belongs_to :state
   belongs_to :note
   belongs_to :author, class_name: "User"
@@ -29,6 +30,12 @@ private
       tag_names.split(",").each do | name |
         note.tags << Tag.find_or_create_by(name: name)
       end
+    end
+  end
+
+  def author_watches_note
+    if author && !note.watchers.include?(author)
+      note.watchers << author
     end
   end
 end

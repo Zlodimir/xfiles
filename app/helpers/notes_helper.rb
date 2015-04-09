@@ -11,4 +11,13 @@ module NotesHelper
 			end
 		end
 	end
+
+	def toggle_watching_button(note)
+		text = if note.watchers.include?(current_user)
+			"Unwatch"
+		else
+			"Watch"
+		end
+		link_to text, watch_xfile_note_path(note.xfile, note), class: text.parameterize, method: :post
+	end
 end

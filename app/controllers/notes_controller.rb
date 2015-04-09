@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
 	before_action :set_xfile
-	before_action :set_note, only: [:show, :edit, :update, :destroy]
+	before_action :set_note, only: [:show, :edit, :update, :destroy, :watch]
 	def new
 		@note = @xfile.notes.build
 
@@ -63,6 +63,19 @@ class NotesController < ApplicationController
 		authorize @xfile, :show?
 		@notes = @xfile.notes.search(params[:search] || "")
 		render "xfiles/show"
+	end
+
+	def watch
+		authorize @note, :show?
+		if @note.watchers.exists?(current_user.id)
+			@note.watchers.destroy(current_user)
+			flash[:notice] = "You are no longer watching this note"
+		else
+			@note.watchers << current_user
+			flash[:notice] = "You are now watching this note"
+		end
+
+		redirect_to xfile_note_path(@note.xfile, @note)
 	end
 
 	private

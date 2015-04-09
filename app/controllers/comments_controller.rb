@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
 			render "notes/show"
 		end
 	end
+
 private
 	def set_note
 		@note = Note.find(params[:note_id])
@@ -26,9 +27,11 @@ private
 
 	def sanitize_parameters!
 		whitelisted_params = comment_params
+
 		unless policy(@note).change_state?
 			whitelisted_params.delete(:state_id)
 		end
+
 		unless policy(@note).tag?
 			whitelisted_params.delete(:tag_names)
 		end

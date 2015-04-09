@@ -16,6 +16,15 @@
 		<% if @note.tags.any? %>
 			<div id="tags">Tags: <%= render @note.tags, note: @note %></div>
 		<% end %>
+		<table id="attributes">
+			<tr id="watchers">
+				<th>Watchers:</th>
+				<td>
+					<%= toggle_watching_button(@note) %><br />
+					<%= @note.watchers.map(&:email).to_sentence %>
+				</td>
+			</tr>
+		</table>
 	</div>
 
 

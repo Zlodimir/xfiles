@@ -26,4 +26,20 @@ RSpec.feature "Users can receive notifications about note updates" do
 		click_first_link_in_email(email)
 		expect(page).to have_heading(note.title)
 	end
+
+	scenario "comment authors are automatically subscribed to a note" do
+		fill_in "Text", with: "is it not yet?"
+		click_button "Create Comment"
+		expect(page).to have_content("Comment has been created")
+		click_link "Sign Out"
+		reset_mailer
+		login_as(alice)
+		visit xfile_note_path(xfile, note)
+		fill_in "Text", with: "Noy yet - Sorry!"
+		click_button "Create Comment"
+
+		expect(page).to have_content("Comment has been created")
+		expect(unread_emails_for(bob.email).count).to eq 1
+		expect(unread_emails_for(alice.email).count).to eq 0
+	end
 end

@@ -1,5 +1,12 @@
 language: ruby
 rvm: 2.0.0
 before_install:
-- "export DISPLAY=:99.0"
-- "sh -e /etc/init.d/xvfb start"
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+deploy:
+  provider: heroku
+  api_key:
+    secure: VFyiDymIEMtMKkp+Ya8ICEDST7GzSpEiRZsjEBkVPuX2/MrA5SQLn0r8C3qhAOk9nL7mGNTIgEmCeClGXNlz0/e3KGrba0YXGa8BpBBNGqVyVtGFN/B13xrYXOe8IAyaw0JtNHrx75EbRePfeR7pBftp89UhNCptx6kcZUrZ5gw=
+  app: zlodimir-xfiles
+  on:
+    repo: Zlodimir/xfiles

@@ -51,6 +51,8 @@ gem "searcher", github: "radar/searcher"
 
 gem "fog", '~> 1.16.0'
 
+gem "capistrano", "~> 2.15.5"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
